@@ -25,6 +25,7 @@
 
 <script>
 import { mapState } from "vuex";
+import api from './api/index'
 export default {
   data() {
     return {
@@ -32,6 +33,12 @@ export default {
       docked: false,
       list:[]
     };
+  },
+  mounted () {
+    let vue = this;
+    api.getTopics().then(data=>{
+      vue.list = data.data.others;
+    })
   },
   computed: mapState({
     flag: state => state.drawer
