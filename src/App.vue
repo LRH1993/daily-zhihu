@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       open: false,
-      docked: false
+      docked: false,
+      list:[]
     };
   },
   computed: mapState({
@@ -37,7 +38,13 @@ export default {
   }),
   methods: {
     back(n) {},
-    toggle() {}
+    toggle() {},
+    change(id){
+
+    },
+    jump(){
+      window.open("https://github.com/LRH1993/daily-zhihu");
+    }
   }
 };
 </script>
