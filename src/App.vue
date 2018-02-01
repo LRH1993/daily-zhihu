@@ -21,6 +21,9 @@
       </ul>
      <div class="cover" @touchmove.prevent></div>
     </aside>
+    <div v-if="circle" class="circle" @click="top()">
+      <i class="iconfont icon-ic_top"></i>
+    </div>
   </div>
 </template>
 
@@ -43,7 +46,8 @@ export default {
   },
   computed: mapState({
     flag: state => state.drawer,
-    num: state => state.num
+    num: state => state.num,
+    circle :state=>state.circleFlag
   }),
   methods: {
     back(n) {},
@@ -60,6 +64,9 @@ export default {
       }
     },
     change(id) {},
+    top(){
+
+    },
     jump() {
       window.open("https://github.com/LRH1993/daily-zhihu");
     }
@@ -154,6 +161,25 @@ export default {
     .cover {
       display: block;
     }
+  }
+}
+.circle{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  right: 5%;
+  bottom: 5vw;
+  position: fixed;
+  z-index: 10;
+  i {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    font-size: 0.6rem;
+    color: #acb9c9;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
