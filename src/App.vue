@@ -24,6 +24,11 @@
     <div v-if="circle" class="circle" @click="top()">
       <i class="iconfont icon-ic_top"></i>
     </div>
+    <transition :name="transitionName">
+      <keep-alive>
+        <router-view class="app-view" :class="{'app-view-hidden':docked}"></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -35,7 +40,8 @@ export default {
     return {
       open: false,
       docked: false,
-      list: []
+      list: [],
+      transitionName: "slide-left"
     };
   },
   mounted() {
@@ -47,7 +53,7 @@ export default {
   computed: mapState({
     flag: state => state.drawer,
     num: state => state.num,
-    circle :state=>state.circleFlag
+    circle: state => state.circleFlag
   }),
   methods: {
     back(n) {},
@@ -64,9 +70,7 @@ export default {
       }
     },
     change(id) {},
-    top(){
-
-    },
+    top() {},
     jump() {
       window.open("https://github.com/LRH1993/daily-zhihu");
     }
@@ -75,11 +79,24 @@ export default {
 </script>
 
 <style lang="less">
+.app-view {
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: absolute;
+  transition: transform 0.3s ease;
+  -webkit-overflow-scrolling: touch;
+}
+.app-view-hidden {
+  overflow: hidden;
+}
 .header {
   width: 100%;
   height: 1.5rem;
   z-index: 9;
   padding-left: 5%;
+  position: fixed;
   background-image: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
@@ -163,7 +180,7 @@ export default {
     }
   }
 }
-.circle{
+.circle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -180,6 +197,16 @@ export default {
     font-size: 0.6rem;
     color: #acb9c9;
     transform: translate(-50%, -50%);
+  }
+}
+@media screen and (min-width: 640px) {
+  .app-view {
+    width: 640px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .aside ul {
+    width: 350px;
   }
 }
 </style>
