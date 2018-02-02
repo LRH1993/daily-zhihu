@@ -14,6 +14,11 @@
         <p>{{y.title}}</p>
       </div>
     </div>
+    <div class="loading" v-if="!list.length">
+      <span class="left"></span>
+      <span class="middle"></span>
+      <span class="right"></span>
+    </div>
   </div>
 </template>
 <script>
@@ -27,7 +32,7 @@ export default {
     return {
       swiper: "",
       tops: [],
-      list:[]
+      list: []
     };
   },
   mounted() {
@@ -63,6 +68,7 @@ export default {
 <style lang="less" scoped>
 @blue: #5b7492;
 @yellow: #ffd300;
+@gray: #acb9c8;
 .app-view {
   .swiper-container {
     width: 100%;
@@ -110,48 +116,129 @@ export default {
     }
   }
 }
-.list{
+.list {
   width: 90%;
   z-index: 1;
   position: relative;
   padding-top: 0.8rem;
   margin: 0.8rem auto 0;
-  &-time{
+  &-time {
     top: 0;
     margin: 0;
     color: #fff;
-    padding:0.1rem;
+    padding: 0.1rem;
     font-size: 0.4rem;
     background-color: @yellow;
     line-height: 0.8rem;
     letter-spacing: 0.1rem;
     border-radius: 0.4rem;
     text-align: center;
-    transform: translate(0,-50%);
+    transform: translate(0, -50%);
     position: absolute;
-    box-shadow:0 3px 10px 0 rgba(91,115,146,0.15) ;
+    box-shadow: 0 3px 10px 0 rgba(91, 115, 146, 0.15);
   }
-  &-con{
+  &-con {
     cursor: pointer;
     display: flex;
-    padding:0.3rem;
+    padding: 0.3rem;
     margin-bottom: 0.4rem;
     border-radius: 0.15rem;
     align-items: center;
     background-color: #fff;
     box-shadow: 0 3px 10px 0 rgba(91, 115, 146, 0.15);
-    img{
+    img {
       width: 2rem;
       margin-right: 0.4rem;
     }
-    p{
+    p {
       color: @blue;
       font-size: 0.4rem;
       text-align: justify;
       margin: 0;
     }
   }
-
+}
+.loading {
+  width: 25%;
+  height: 0.4rem;
+  margin: 25% auto 0;
+  position: relative;
+  span {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    position: absolute;
+    background: @blue;
+  }
+  .left {
+    background-color: @yellow;
+    animation: lMove 1.5s ease infinite;
+  }
+  .middle {
+    left: 50%;
+    animation: mMove 1.5s ease infinite;
+  }
+  .right {
+    left: 100%;
+    background-color: @gray;
+    animation: rMove 1.5s ease infinite;
+  }
+}
+@keyframes lMove {
+  0% {
+    left: 0;
+  }
+  25% {
+    left: 50%;
+    background-color: @yellow;
+  }
+  50% {
+    left: 100%;
+    background-color: @blue;
+  }
+  75% {
+    left: 50%;
+    background-color: @gray;
+  }
+  100% {
+    left: 0%;
+  }
+}
+@keyframes mMove {
+  0% {
+  }
+  25% {
+    background: @blue;
+  }
+  50% {
+    background: @yellow;
+  }
+  75% {
+    background: @blue;
+  }
+  100% {
+  }
+}
+@keyframes rMove {
+  0% {
+    left: 100%;
+  }
+  25% {
+    left: 50%;
+    background: @blue;
+  }
+  50% {
+    left: 0;
+    background: @gray;
+  }
+  75% {
+    left: 50%;
+    background: @yellow;
+  }
+  100% {
+    left: 100%;
+  }
 }
 </style>
 
