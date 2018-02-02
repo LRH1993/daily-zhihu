@@ -7,6 +7,13 @@
         <h3>{{top.title}}</h3>
       </div>
     </m-swipe>
+    <div class="list" v-for="x in list" :key="x.date">
+      <p class="list-time">{{x.date.substring(0,4)+"/"+x.date.substring(4,6)+"/"+x.date.substring(6,8)}}</p>
+      <div class="list-con" @click="go(y.id)" v-for="y in x.stories" :key="y.id">
+        <img :src="y.images[0]">
+        <p>{{y.title}}</p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -19,7 +26,8 @@ export default {
   data() {
     return {
       swiper: "",
-      tops: []
+      tops: [],
+      list:[]
     };
   },
   mounted() {
@@ -45,6 +53,7 @@ export default {
       if (type) {
         api.getNews().then(data => {
           vue.tops = data.data.top_stories;
+          vue.list.push(data.data);
         });
       }
     }
@@ -100,6 +109,49 @@ export default {
       border: 2px solid @yellow;
     }
   }
+}
+.list{
+  width: 90%;
+  z-index: 1;
+  position: relative;
+  padding-top: 0.8rem;
+  margin: 0.8rem auto 0;
+  &-time{
+    top: 0;
+    margin: 0;
+    color: #fff;
+    padding:0.1rem;
+    font-size: 0.4rem;
+    background-color: @yellow;
+    line-height: 0.8rem;
+    letter-spacing: 0.1rem;
+    border-radius: 0.4rem;
+    text-align: center;
+    transform: translate(0,-50%);
+    position: absolute;
+    box-shadow:0 3px 10px 0 rgba(91,115,146,0.15) ;
+  }
+  &-con{
+    cursor: pointer;
+    display: flex;
+    padding:0.3rem;
+    margin-bottom: 0.4rem;
+    border-radius: 0.15rem;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 3px 10px 0 rgba(91, 115, 146, 0.15);
+    img{
+      width: 2rem;
+      margin-right: 0.4rem;
+    }
+    p{
+      color: @blue;
+      font-size: 0.4rem;
+      text-align: justify;
+      margin: 0;
+    }
+  }
+
 }
 </style>
 
