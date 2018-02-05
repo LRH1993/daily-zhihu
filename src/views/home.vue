@@ -19,24 +19,31 @@
       <span class="middle"></span>
       <span class="right"></span>
     </div>
+    <infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"></infinite-scroll>
   </div>
 </template>
 <script>
 import swiper from "../components/swipe/swipe";
+import infiniteScroll from "../components/inifniteScroll";
 import api from "../api/index";
 export default {
   components: {
-    "m-swipe": swiper
+    "m-swipe": swiper,
+    "infinite-scroll": infiniteScroll
   },
   data() {
     return {
       swiper: "",
       tops: [],
-      list: []
+      list: [],
+      loading: false,
+      scroller: null,
+      count: 1
     };
   },
   mounted() {
     this.getList(1);
+    this.scroller = this.$el;
     let swiper = this.$refs.swiper;
     if (swiper.dom) {
       this.swiper = swiper.dom;
@@ -60,7 +67,30 @@ export default {
           vue.tops = data.data.top_stories;
           vue.list.push(data.data);
         });
+      } else {
+        api.getNewsByDate(vue.GetDate(vue.count)).then(data => {
+          vue.list.push(data.data);
+          vue.loading = false;
+        });
       }
+    },
+    loadMore() {
+      let vue = this;
+      this.loading = true;
+      setTimeout(() => {
+        vue.count--;
+        vue.getList();
+      }, 500);
+    },
+    GetDate(Count) {
+      var dd = new Date();
+      dd.setDate(dd.getDate() + Count); //获取AddDayCount天后的日期
+      var y = dd.getFullYear();
+      var m = dd.getMonth() + 1; //获取当前月份的日期
+      m = m >= 10 ? m : "0" + m;
+      var d = dd.getDate();
+      d = d >= 10 ? d : "0" + d;
+      return y + "" + m + "" + d;
     }
   }
 };
