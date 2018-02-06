@@ -70,7 +70,22 @@ export default {
       }
     },
     change(id) {},
-    top() {},
+    top() {
+      let vue = this;
+      let dom = document.querySelector('.app-view');
+      let height = dom.scrollTop;
+      let scrollTop = parseInt(height/50);
+      let time = setInterval(function(){
+        height -=scrollTop;
+        if(height<=0){
+          dom.scrollTop = 0;
+          vue.$store.commit("toggle");
+          clearInterval(time);
+        }else{
+          dom.scrollTop = height;
+        }
+      },1);
+    },
     jump() {
       window.open("https://github.com/LRH1993/daily-zhihu");
     }
