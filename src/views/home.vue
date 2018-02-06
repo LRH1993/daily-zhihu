@@ -20,16 +20,26 @@
       <span class="right"></span>
     </div>
     <infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"></infinite-scroll>
+    <!-- 回到顶部组件 -->
+	  <back-scroll :scroller="scroller" :flag="circle"></back-scroll>
   </div>
 </template>
 <script>
 import swiper from "../components/swipe/swipe";
 import infiniteScroll from "../components/inifniteScroll";
 import api from "../api/index";
+import backScroll from '../components/backScroll'
+import { mapState } from "vuex";
 export default {
   components: {
     "m-swipe": swiper,
-    "infinite-scroll": infiniteScroll
+    "infinite-scroll": infiniteScroll,
+    "back-scroll":backScroll
+  },
+  computed: {
+    ...mapState({
+      circle: state => state.circleFlag
+    })
   },
   data() {
     return {
