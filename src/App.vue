@@ -69,22 +69,31 @@ export default {
         }, 300);
       }
     },
-    change(id) {},
+    change(id) {
+      let path = id === 1 ? "home" : "theme";
+      this.$router.push({
+        name: path,
+        query: {
+          id: id || ""
+        }
+      });
+      this.$store.commit('add',id);
+    },
     top() {
       let vue = this;
-      let dom = document.querySelector('.app-view');
+      let dom = document.querySelector(".app-view");
       let height = dom.scrollTop;
-      let scrollTop = parseInt(height/50);
-      let time = setInterval(function(){
-        height -=scrollTop;
-        if(height<=0){
+      let scrollTop = parseInt(height / 50);
+      let time = setInterval(function() {
+        height -= scrollTop;
+        if (height <= 0) {
           dom.scrollTop = 0;
           vue.$store.commit("toggle");
           clearInterval(time);
-        }else{
+        } else {
           dom.scrollTop = height;
         }
-      },1);
+      }, 1);
     },
     jump() {
       window.open("https://github.com/LRH1993/daily-zhihu");

@@ -19,6 +19,9 @@ export default new Vuex.Store({
       } else {
         state.circleFlag = false;
       }
+    },
+    add(state, n) {
+      state.num = n;
     }
   }
 })
