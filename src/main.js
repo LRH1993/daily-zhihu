@@ -18,3 +18,16 @@ new Vue({
   },
   template: '<App/>'
 })
+let indexScrollTop = 0;
+let dom = document.querySelector('.app-view');
+router.beforeEach((to, from, next) => {
+  if (to.path == '/article') {
+    dom = document.querySelector('.app-view');
+    indexScrollTop = dom.scrollTop;
+    store.commit('back');
+  } else {
+    store.commit('back', 1);
+  }
+  store.commit('toggle');
+  next();
+});

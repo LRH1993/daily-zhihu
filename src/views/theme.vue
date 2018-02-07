@@ -70,8 +70,13 @@ export default {
         });
       }
     },
-    go(id){
-
+    go(id) {
+      this.$router.push({
+        path: "article",
+        query: {
+          id: id
+        }
+      });
     }
   }
 };

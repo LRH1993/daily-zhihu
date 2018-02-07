@@ -56,7 +56,15 @@ export default {
     circle: state => state.circleFlag
   }),
   methods: {
-    back(n) {},
+    back(n) {
+      if (n) {
+        this.$router.push({
+          path: "home"
+        });
+      } else {
+        window.history.back();
+      }
+    },
     toggle() {
       if (!this.open) {
         this.open = true;
@@ -77,7 +85,7 @@ export default {
           id: id || ""
         }
       });
-      this.$store.commit('add',id);
+      this.$store.commit("add", id);
     },
     top() {
       let vue = this;

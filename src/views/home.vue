@@ -84,6 +84,14 @@ export default {
         });
       }
     },
+    go(id) {
+			this.$router.push({
+				path: "article",
+				query: {
+					id: id
+				}
+			});
+		},
     loadMore() {
       let vue = this;
       this.loading = true;

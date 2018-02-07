@@ -22,6 +22,13 @@ export default new Vuex.Store({
     },
     add(state, n) {
       state.num = n;
+    },
+    back(state, n) {
+      if (n) {
+        state.drawer = false;
+      } else {
+        state.drawer = true;
+      }
     }
   }
 })
